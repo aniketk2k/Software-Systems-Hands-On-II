@@ -1,0 +1,17 @@
+/*
+
+Name: 19.c
+Author: Aniket Kumar
+Decsription: Create a FIFO file by 
+                a. mknod command 
+                b. mkfifo command 
+                c. use strace command to find out, which command (mknod or mkfifo) is better. 
+                d. mknod system call 
+                e. mkfifo library function
+Date: September 26th, 2025
+
+*/
+
+
+Command to use: "strace -e trace=creat,mknod mkfifo myfifo"
+                "strace -e trace=creat,mknod mknod myfifo p"
