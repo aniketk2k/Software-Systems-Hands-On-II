@@ -49,3 +49,14 @@ trafalgarlaw@ANIKETKUMAROMEN:~/Software System HandsOn II/31$ ./temp
 Binary semaphore created. ID: 0, Initial value: 1
 
 */
+
+
+
+/*
+union semun {
+    int val;                  // Used for SETVAL
+    struct semid_ds *buf;     // Used for IPC_STAT and IPC_SET
+    unsigned short *array;    // Used for GETALL and SETALL
+    struct seminfo *__buf;    // Used for IPC_INFO (Linux-specific)
+};
+*/

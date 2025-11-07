@@ -25,25 +25,26 @@ Date: September 28th, 2025
 #define BACKLOG 5
 #define BUF_SIZE 1024
 
+// avoid zombie process
 void handle_sigchld(int signo) {
     (void)signo;
-    while(waitpid(-1, NULL, WNOHANG) > 0);
+    while(waitpid(-1, NULL, WNOHANG) > 0);  // WNOHANG don't block if no child has exited
 }
 
 int main() {
-    int server_sock = socket(AF_INET, SOCK_STREAM, 0);
+    int server_sock = socket(AF_INET, SOCK_STREAM, 0);  // IPv4, TCP
     if(server_sock < 0){ 
         perror("socket"); 
         exit(1); 
     }
 
     int opt = 1;
-    setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+    setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));   // allows port to reuse immediately after restart of server
 
-    struct sockaddr_in server_addr = {AF_INET, htons(PORT), INADDR_ANY};
+    struct sockaddr_in server_addr = {AF_INET, htons(PORT), INADDR_ANY};    // htons(PORT): converts port to network byte order
     memset(&server_addr.sin_zero, 0, 8);
 
-    bind(server_sock, (struct sockaddr *)&server_addr, sizeof(server_addr));
+    bind(server_sock, (struct sockaddr *)&server_addr, sizeof(server_addr));    
     listen(server_sock, BACKLOG);
 
     signal(SIGCHLD, handle_sigchld);
@@ -56,12 +57,12 @@ int main() {
         int client_sock = accept(server_sock, (struct sockaddr *)&client_addr, &addr_len);
         if(client_sock < 0) continue;
 
-        printf("Connected: %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+        printf("Connected: %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port)); // converts client's IP and port in human readable format
 
         if(!fork()){
             close(server_sock);
             char buf[BUF_SIZE] = {0};
-            int n = recv(client_sock, buf, BUF_SIZE - 1, 0);
+            int n = recv(client_sock, buf, BUF_SIZE-1, 0);  // server reads client's message
             if(n > 0){
                 buf[n] = '\0';
                 printf("Client: %s\n", buf);
@@ -103,6 +104,5 @@ Terminal 3:
 trafalgarlaw@ANIKETKUMAROMEN:~/Software System HandsOn II/34$ nc localhost 8080
 Hello Law this side
 Hello from server!
-
 
 */

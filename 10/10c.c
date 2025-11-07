@@ -1,3 +1,15 @@
+/*
+
+Name: 10a.c
+Author: Aniket Kumar
+Decsription: Write a seperate program using sigacton system call to catch the following signals.
+                a. SIGSEGV
+                b. SIGINT
+                c. SIGFPE
+Date: October 1st, 2025
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>

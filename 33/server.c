@@ -25,25 +25,25 @@ int main() {
 
     // Create socket
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (server_fd < 0) {
+    if(server_fd < 0){
         perror("Socket creation failed");
         exit(EXIT_FAILURE);
     }
 
     // Setup server address
     address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_addr.s_addr = INADDR_ANY;   // listen to all network interfaces (localhost, LAN IP, etc)
     address.sin_port = htons(PORT);
 
     // Bind socket
-    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
+    if(bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0){
         perror("Bind failed");
         close(server_fd);
         exit(EXIT_FAILURE);
     }
 
     // Listen for connections
-    if (listen(server_fd, 3) < 0) {
+    if(listen(server_fd, 3) < 0){   // 3 -> Backlog: No. of clients waiting in the queue
         perror("Listen failed");
         close(server_fd);
         exit(EXIT_FAILURE);
@@ -52,7 +52,7 @@ int main() {
 
     // Accept connection
     new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen);
-    if (new_socket < 0) {
+    if(new_socket < 0){
         perror("Accept failed");
         close(server_fd);
         exit(EXIT_FAILURE);
@@ -61,7 +61,7 @@ int main() {
 
     // Read message from client
     int valread = read(new_socket, buffer, BUF_SIZE);
-    if (valread > 0) {
+    if(valread > 0){
         printf("Client: %s\n", buffer);
     }
 

@@ -27,7 +27,8 @@ int main(){
         exit(1); 
     }
 
-    union semun{
+    // See line 58 
+    union semun{            
         unsigned short *array;
     } sem_attr;
 
@@ -50,4 +51,15 @@ trafalgarlaw@ANIKETKUMAROMEN:~/Software System HandsOn II/31$ gcc 31b.c -o temp2
 trafalgarlaw@ANIKETKUMAROMEN:~/Software System HandsOn II/31$ ./temp2
 Counting semaphore set created. ID: 1, Initial values: 0,1,9
 
+*/
+
+
+
+/*
+union semun {
+    int val;                  // Used for SETVAL
+    struct semid_ds *buf;     // Used for IPC_STAT and IPC_SET
+    unsigned short *array;    // Used for GETALL and SETALL
+    struct seminfo *__buf;    // Used for IPC_INFO (Linux-specific)
+};
 */

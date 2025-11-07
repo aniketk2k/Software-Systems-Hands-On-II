@@ -29,11 +29,10 @@ int main() {
 
     // Ensure the file exists for ftok
     const char *filename = "msgqueuefile";
-    FILE *f = fopen(filename, "a"); // create if doesn't exist
+    FILE *f = fopen(filename, "a"); // create if doesn't exist, because ftok() requires files to generate key
     if(f) 
         fclose(f);
 
-    // Generate key and create message queue
     key = ftok(filename, 65);
     if(key == -1){
         perror("ftok");
@@ -74,7 +73,7 @@ b. UID (owner) and GID (owner) are : 1000 and 1000 respectivly.
 c. Time of last message sent and received are: Thu Jan  1 05:30:00 1970
  and Thu Jan  1 05:30:00 1970
  respectively
-d. Time of last change: Wed Oct  1 18:36:39 2025
+d. Time of last change: Wed Oct 1 18:36:39 2025
 
 e. Current size (in bytes) of queue: 0
 f. Number of messages in queue: 0

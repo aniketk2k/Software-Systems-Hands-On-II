@@ -1,3 +1,14 @@
+/*
+
+Name: 34
+Author: Aniket Kumar
+Decsription: Write a program to create a concurrent server.
+                a. use fork
+                b. use pthread_create
+Date: September 28th, 2025
+
+*/
+
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <pthread.h>
@@ -42,11 +53,14 @@ int main(){
 
     printf("Server listening on port %d...\n", PORT);
 
-    while (1) {
+    while(1){
         struct sockaddr_in client_addr;
         socklen_t len = sizeof(client_addr);
         int client = accept(server, (struct sockaddr *)&client_addr, &len);
-        if (client < 0) { perror("accept"); continue; }
+        if(client < 0){ 
+            perror("accept"); 
+            continue; 
+        }
 
         printf("Connected: %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
 

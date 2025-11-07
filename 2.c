@@ -18,9 +18,9 @@ void show_limit(const char *name, int res){
            (lim.rlim_cur == RLIM_INFINITY) ? "infinite" : (char [32]){0},
            (lim.rlim_max == RLIM_INFINITY) ? "infinite" : (char [32]){0});
     if(lim.rlim_cur != RLIM_INFINITY) 
-        printf("\033[F%-20s Soft: %-10llu ", name, (unsigned long long)lim.rlim_cur);
+        printf("\033[F%-20s Soft: %-10llu ", name, (unsigned long long)lim.rlim_cur);   // \033 ANSI escape code: move code one line up
     if(lim.rlim_max != RLIM_INFINITY) 
-        printf("Hard: %-10llu\n", (unsigned long long)lim.rlim_max);
+        printf("Hard: %-10llu\n", (unsigned long long)lim.rlim_max);    //-10llu prints them left alligned in 10 character width
 }
 
 int main() {

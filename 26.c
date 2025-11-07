@@ -36,12 +36,22 @@ int main() {
     return 0;
 }
 
+
+
 /*
+
 OUTPUT:
 
-trafalgarlaw@ANIKETKUMAROMEN:~/Software System HandsOn II$ gcc -o temp 26.c
-trafalgarlaw@ANIKETKUMAROMEN:~/Software System HandsOn II$ ./temp
-Enter message: Hello!
+trafalgarlaw@ANIKETKUMAROMEN:~/Desktop/Software-Systems-Hands-On-II$ touch msgqueuefile
+trafalgarlaw@ANIKETKUMAROMEN:~/Desktop/Software-Systems-Hands-On-II$ gcc -o temp 26.c
+trafalgarlaw@ANIKETKUMAROMEN:~/Desktop/Software-Systems-Hands-On-II$ ./temp
+Enter message: Hello there!  
 Message sent successfully!
+trafalgarlaw@ANIKETKUMAROMEN:~/Desktop/Software-Systems-Hands-On-II$ ipcs -q
+
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages    
+0xffffffff 0          trafalgarl 666        11           2           
+0x41056929 1          trafalgarl 666        14           1   
 
 */
